@@ -29,7 +29,7 @@ function App() {
                             // index: 3,
                             title: 'Stop real-time data',
                             class: 'custom-icon',
-                            click: function (chart, options, e) {
+                            click: function () {
                                 if (isRealTime) {
                                     stopRealTimeData();
                                 }else{
@@ -112,7 +112,6 @@ function App() {
 
     const getRealTimeData = () => {
         socket.on('perfData', (data) => {
-            console.log(data)
             if (data.length === 0) return;
             data.forEach((d) => {
                 if (d._field === 'cpu') pushToCpuLoad(d._value)
@@ -130,8 +129,6 @@ function App() {
     useEffect(() => {
 
         socket.on('connect', () => {
-            const engine = socket.io.engine;
-            console.log(engine.id);
             console.log('Connected to the server');
         });
 
