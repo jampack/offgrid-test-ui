@@ -2,7 +2,7 @@ import {io} from "socket.io-client";
 import {useCallback, useEffect, useState} from "react";
 import Chart from "react-apexcharts";
 
-const socket = io('http://localhost:8000', {
+const socket = io(import.meta.env.VITE_API_URL, {
     transports: ['websocket']
 });
 
@@ -110,7 +110,7 @@ function App() {
         ]
     }, [cpuLoad, ramLoad])
 
-    const getRealTimeData = () => {
+    const getRealTimeData = useCallback(() => {
         socket.on('perfData', (data) => {
             if (data.length === 0) return;
             data.forEach((d) => {
@@ -119,7 +119,7 @@ function App() {
             })
         });
         setIsRealTime(true);
-    };
+    }, [pushToCpuLoad, pushToRamLoad]);
 
     const stopRealTimeData = () => {
         socket.off('perfData');
@@ -139,7 +139,7 @@ function App() {
             socket.off('connect');
             socket.off('perfData');
         };
-    }, [pushToCpuLoad]);
+    }, [getRealTimeData]);
 
     return (
         <>
