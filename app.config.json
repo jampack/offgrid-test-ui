@@ -1,0 +1,10 @@
+{
+  "apps": [
+    {
+      "name": "test-ui",
+      "script": "npm run dev",
+      "interpreter": "none",
+      "args": "serve -p 8443 -T"
+    }
+  ]
+}
