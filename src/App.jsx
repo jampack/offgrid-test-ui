@@ -3,7 +3,7 @@ import {useCallback, useEffect, useState} from "react";
 import Chart from "react-apexcharts";
 
 const socket = io(import.meta.env.VITE_API_URL, {
-    transports: ['websocket']
+    reconnection: true,
 });
 
 
